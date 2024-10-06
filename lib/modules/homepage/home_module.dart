@@ -8,9 +8,8 @@ class HomeModule {
   static final List<GetPage> routes = [
     GetPage(
       name: route,
-      page: () =>  HomePageView(),
+      page: () => const HomePageView(),
       binding: HomeBinding(),
     ),
-
   ];
 }

@@ -6,8 +6,8 @@ final ThemeData appThemeData = ThemeData(
   visualDensity: VisualDensity.adaptivePlatformDensity,
   scaffoldBackgroundColor: Colors.white,
   appBarTheme: const AppBarTheme(
-    color: Color(0xFF3C4CBD),
-    foregroundColor: Colors.white,
+    color: Colors.white,
+    foregroundColor: Colors.black,
   ),
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ButtonStyle(

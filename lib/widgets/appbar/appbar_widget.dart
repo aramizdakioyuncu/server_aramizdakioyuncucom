@@ -12,56 +12,83 @@ class AppbarWidget extends StatelessWidget implements PreferredSizeWidget {
         Get.put(AppBarWidgetController());
 
     return AppBar(
-      leading: CachedNetworkImage(
-        imageUrl: "https://aramizdakioyuncu.com/galeri/ana-yapi/armoyu64.png",
-        height: 60,
-        width: 60,
+      leadingWidth: 100,
+      toolbarHeight: 130,
+      bottom: PreferredSize(
+        preferredSize: preferredSize,
+        child: Container(
+          color: Colors.grey.shade100,
+          height: 1,
+        ),
+      ),
+      leading: Padding(
+        padding: const EdgeInsets.all(3.0),
+        child: CachedNetworkImage(
+          imageUrl: "https://aramizdakioyuncu.com/galeri/ana-yapi/armoyu64.png",
+        ),
       ),
       title: const Row(
         children: [
+          Spacer(),
           Padding(
             padding: EdgeInsets.all(8.0),
             child: Text(
               "Kurallar",
-              style: TextStyle(fontSize: 14),
+              style: TextStyle(
+                fontSize: 14,
+              ),
             ),
           ),
+          Spacer(),
           Padding(
             padding: EdgeInsets.all(8.0),
             child: Text(
               "Etkinlikler",
-              style: TextStyle(fontSize: 14),
+              style: TextStyle(
+                fontSize: 14,
+              ),
             ),
           ),
+          Spacer(),
           Padding(
             padding: EdgeInsets.all(8.0),
             child: Text(
               "Yetkililer",
-              style: TextStyle(fontSize: 14),
+              style: TextStyle(
+                fontSize: 14,
+              ),
             ),
           ),
+          Spacer(),
           Padding(
             padding: EdgeInsets.all(8.0),
             child: Text(
               "Mağaza",
-              style: TextStyle(fontSize: 14),
+              style: TextStyle(
+                fontSize: 14,
+              ),
             ),
           ),
+          Spacer(),
           Padding(
             padding: EdgeInsets.all(8.0),
             child: Text(
               "İletişim",
-              style: TextStyle(fontSize: 14),
+              style: TextStyle(
+                fontSize: 14,
+              ),
             ),
           ),
+          Spacer(),
         ],
       ),
-      centerTitle: false,
+      centerTitle: true,
       actions: [
         const Row(
           children: [
             Icon(
               Icons.monetization_on,
+              color: Colors.amber,
             ),
             Text("0.00"),
           ],
@@ -71,8 +98,10 @@ class AppbarWidget extends StatelessWidget implements PreferredSizeWidget {
           children: [
             Icon(
               Icons.monetization_on,
+              color: Colors.red,
             ),
             Text("0.00"),
+            SizedBox(width: 10),
             SelectableText(
               "Test Kullanıcı",
             )
