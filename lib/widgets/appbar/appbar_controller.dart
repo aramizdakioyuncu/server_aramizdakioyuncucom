@@ -8,13 +8,13 @@ class AppBarWidgetController extends GetxController {
   @override
   void onInit() {
     // Başlangıç verilerini yükleyin
-    displayName.value = AppSession.user.displayname ?? '';
-    avatarUrl.value = AppSession.user.avatar?.minUrl ?? '';
+    displayName.value = AppSession.user.value.displayname ?? '';
+    avatarUrl.value = AppSession.user.value.avatar?.minUrl ?? '';
     super.onInit();
   }
 
   void refreshprofiledetail() {
-    displayName.value = AppSession.user.displayname ?? '';
-    avatarUrl.value = AppSession.user.avatar?.minUrl ?? '';
+    displayName.value = AppSession.user.value.displayname ?? '';
+    avatarUrl.value = AppSession.user.value.avatar?.minUrl ?? '';
   }
 }

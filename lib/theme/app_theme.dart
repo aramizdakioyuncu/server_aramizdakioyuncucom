@@ -59,7 +59,7 @@ final ThemeData appThemeData = ThemeData(
       ),
   checkboxTheme: CheckboxThemeData(
     checkColor: const WidgetStatePropertyAll(Colors.white),
-    fillColor: WidgetStatePropertyAll(Colors.black.withOpacity(0.2)),
-    overlayColor: WidgetStatePropertyAll(Colors.black.withOpacity(0.5)),
+    fillColor: WidgetStatePropertyAll(Colors.black.withValues(alpha: 0.2)),
+    overlayColor: WidgetStatePropertyAll(Colors.black.withValues(alpha: 0.5)),
   ),
 );

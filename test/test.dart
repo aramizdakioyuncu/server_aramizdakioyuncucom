@@ -10,33 +10,33 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text('ListTile Örneği'),
+          title: const Text('ListTile Örneği'),
         ),
         body: ListView(
           children: <Widget>[
             ListTile(
-              leading: Icon(Icons.map),
-              title: Text('Lorem ipsum sit amend'),
-              subtitle: Text(
+              leading: const Icon(Icons.map),
+              title: const Text('Lorem ipsum sit amend'),
+              subtitle: const Text(
                   'dgnlks nhr gköhgkueröghuekg drlghöer gker uheskughesrkug erhkuw4u kusgeuj ghrkeuhj'),
               onTap: () {
                 // Tıklama işlemi
               },
             ),
             ListTile(
-              leading: Icon(Icons.photo_album),
-              title: Text('Albüm'),
-              subtitle: Text('Fotoğraf albümü'),
-              trailing: Icon(Icons.navigate_next),
+              leading: const Icon(Icons.photo_album),
+              title: const Text('Albüm'),
+              subtitle: const Text('Fotoğraf albümü'),
+              trailing: const Icon(Icons.navigate_next),
               onTap: () {
                 // Tıklama işlemi
               },
             ),
             ListTile(
-              leading: Icon(Icons.phone),
-              title: Text('Telefon'),
-              subtitle: Text('Telefon uygulaması'),
-              trailing: Icon(Icons.navigate_next),
+              leading: const Icon(Icons.phone),
+              title: const Text('Telefon'),
+              subtitle: const Text('Telefon uygulaması'),
+              trailing: const Icon(Icons.navigate_next),
               onTap: () {
                 // Tıklama işlemi
               },
