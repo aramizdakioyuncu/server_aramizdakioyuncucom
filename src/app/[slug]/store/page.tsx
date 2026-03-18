@@ -1,10 +1,23 @@
 import Image from "next/image";
 
+export const dynamic = 'force-static';
+export const dynamicParams = false;
+
+export function generateStaticParams() {
+  return [
+    { slug: 'minecraft' },
+    { slug: 'fivem' },
+    { slug: 'assettocorsa' },
+  ];
+}
+
 export default async function StorePage({
   params,
 }: {
-  params: Promise<{ game: string }>;
+  params: Promise<{ slug: string }>;
 }) {
+  const resolvedParams = await params;
+  const gameSlug = resolvedParams.slug;
   const products = [
     { name: "VIP", price: "50", color: "bg-blue-500", shadow: "shadow-blue-500/20" },
     { name: "VIP+", price: "100", color: "bg-cyan-500", shadow: "shadow-cyan-500/20" },

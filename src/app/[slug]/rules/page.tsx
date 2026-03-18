@@ -1,10 +1,21 @@
+export const dynamic = 'force-static';
+export const dynamicParams = false;
+
+export function generateStaticParams() {
+  return [
+    { slug: 'minecraft' },
+    { slug: 'fivem' },
+    { slug: 'assettocorsa' },
+  ];
+}
+
 export default async function RulesPage({
   params,
 }: {
-  params: Promise<{ game: string }>;
+  params: Promise<{ slug: string }>;
 }) {
   const resolvedParams = await params;
-  const gameSlug = resolvedParams.game;
+  const gameSlug = resolvedParams.slug;
 
   const rules = [
     { title: "Saygı ve Nezaket", content: "Tüm oyuncular birbirine saygılı olmalıdır. Küfür, hakaret ve toksik davranışlar yasaktır." },

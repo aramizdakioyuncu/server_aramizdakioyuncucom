@@ -1,8 +1,21 @@
+export const dynamic = 'force-static';
+export const dynamicParams = false;
+
+export function generateStaticParams() {
+  return [
+    { slug: 'minecraft' },
+    { slug: 'fivem' },
+    { slug: 'assettocorsa' },
+  ];
+}
+
 export default async function ContactPage({
   params,
 }: {
-  params: Promise<{ game: string }>;
+  params: Promise<{ slug: string }>;
 }) {
+  const resolvedParams = await params;
+  const gameSlug = resolvedParams.slug;
   return (
     <div className="animate-in fade-in slide-in-from-bottom-4 duration-700">
       <div className="max-w-4xl mx-auto glass rounded-2xl p-8 md:p-12 relative overflow-hidden">

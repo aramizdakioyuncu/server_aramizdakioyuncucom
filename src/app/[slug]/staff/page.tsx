@@ -1,8 +1,21 @@
+export const dynamic = 'force-static';
+export const dynamicParams = false;
+
+export function generateStaticParams() {
+  return [
+    { slug: 'minecraft' },
+    { slug: 'fivem' },
+    { slug: 'assettocorsa' },
+  ];
+}
+
 export default async function StaffPage({
   params,
 }: {
-  params: Promise<{ game: string }>;
+  params: Promise<{ slug: string }>;
 }) {
+  const resolvedParams = await params;
+  const gameSlug = resolvedParams.slug;
   const staff = [
     { name: "Berkay", role: "Kurucu", avatar: "https://i.pravatar.cc/150?u=berkay", color: "text-red-500" },
     { name: "Ahmet", role: "Yönetici", avatar: "https://i.pravatar.cc/150?u=ahmet", color: "text-rose-400" },

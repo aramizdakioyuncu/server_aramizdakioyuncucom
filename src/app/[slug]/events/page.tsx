@@ -1,10 +1,23 @@
 import Image from "next/image";
 
+export const dynamic = 'force-static';
+export const dynamicParams = false;
+
+export function generateStaticParams() {
+  return [
+    { slug: 'minecraft' },
+    { slug: 'fivem' },
+    { slug: 'assettocorsa' },
+  ];
+}
+
 export default async function EventsPage({
   params,
 }: {
-  params: Promise<{ game: string }>;
+  params: Promise<{ slug: string }>;
 }) {
+  const resolvedParams = await params;
+  const gameSlug = resolvedParams.slug;
   const events = [
     { id: 1, title: "Yeni Yıl İndirimleri Başladı!", date: "25 Aralık 2026", desc: "Tüm mağaza ürünlerinde %50'ye varan efsane indirim fırsatlarını kaçırmayın.", img: "/bg-placeholder.jpg" },
     { id: 2, title: "Sezon 5 Açılışı", date: "15 Ekim 2026", desc: "Yeni sezonla birlikte yepyeni haritalar, araçlar ve mekanikler sunucuya eklendi.", img: "/bg-placeholder.jpg" },

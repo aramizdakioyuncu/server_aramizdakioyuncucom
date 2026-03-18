@@ -1,15 +1,26 @@
 import HeroBanner from "@/components/HeroBanner";
 import React from "react";
 
+export const dynamic = 'force-static';
+export const dynamicParams = false;
+
+export function generateStaticParams() {
+  return [
+    { slug: 'minecraft' },
+    { slug: 'fivem' },
+    { slug: 'assettocorsa' },
+  ];
+}
+
 export default async function GameLayout({
   children,
   params,
 }: {
   children: React.ReactNode;
-  params: Promise<{ game: string }>;
+  params: Promise<{ slug: string }>;
 }) {
   const resolvedParams = await params;
-  const gameSlug = resolvedParams.game;
+  const gameSlug = resolvedParams.slug;
   
   return (
     <div className="flex flex-col flex-1 w-full">
