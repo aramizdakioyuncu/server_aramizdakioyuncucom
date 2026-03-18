@@ -22,11 +22,7 @@ export default function Navbar() {
 
   const getLinks = (gameSlug: string) => {
     if (!gameSlug || gameSlug === "profile") {
-      return [
-        { name: "Ana Sayfa", href: "/" },
-        { name: "Minecraft", href: "/minecraft" },
-        { name: "FiveM", href: "/fivem" },
-      ];
+      return []; // Already in Sidebar, keep Navbar clean
     }
     return [
       { name: "Ana Sayfa", href: `/${gameSlug}` },
@@ -55,10 +51,10 @@ export default function Navbar() {
                     <Link
                       key={link.name}
                       href={link.href}
-                      className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                      className={`px-4 py-2 rounded-lg text-sm font-black uppercase tracking-widest transition-all ${
                         isActive 
-                          ? "bg-slate-800/80 text-blue-400" 
-                          : "text-slate-300 hover:bg-slate-800/50 hover:text-white"
+                          ? "bg-brand/10 text-brand" 
+                          : "text-muted hover:bg-foreground/5 hover:text-foreground"
                       }`}
                     >
                       {link.name}
@@ -72,22 +68,22 @@ export default function Navbar() {
             <div className="flex items-center gap-4">
               <button 
                 onClick={() => setIsSettingsOpen(true)}
-                className="hidden sm:flex text-slate-300 hover:text-white hover:bg-slate-800/50 p-2 rounded-full transition-colors"
+                className="hidden sm:flex text-muted hover:text-foreground hover:bg-foreground/10 p-2 rounded-full transition-colors"
                 title="Ayarlar"
               >
                 ⚙️
               </button>
               
-              <div className="h-8 w-[1px] bg-slate-700 mx-2 hidden sm:block"></div>
+              <div className="h-8 w-[1px] bg-white/10 mx-2 hidden sm:block"></div>
               
               {isLoggedIn ? (
                 <div className="flex items-center gap-2">
-                  <Link href="/profile" className="flex items-center gap-3 p-1 pr-4 bg-slate-800/50 hover:bg-slate-700/50 transition-colors rounded-full border border-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    <div className="w-8 h-8 rounded-full bg-slate-600 overflow-hidden ring-2 ring-slate-800">
+                  <Link href="/profile" className="flex items-center gap-3 p-1 pr-4 bg-foreground/5 hover:bg-foreground/10 transition-colors rounded-full border border-white/10 focus:outline-none focus:ring-2 focus:ring-brand">
+                    <div className="w-8 h-8 rounded-full bg-slate-600 overflow-hidden ring-2 ring-white/5">
                       <img src={user?.avatar} alt="Avatar" className="w-full h-full object-cover" />
                     </div>
                     <div className="hidden sm:flex flex-col">
-                      <span className="text-sm font-semibold leading-tight text-slate-200">{user?.username}</span>
+                      <span className="text-sm font-semibold leading-tight text-foreground">{user?.username}</span>
                       <span className="text-xs text-yellow-500 flex items-center gap-1 font-medium">
                         <span className="w-1.5 h-1.5 rounded-full bg-yellow-500 shadow-[0_0_5px_rgba(234,179,8,1)]"></span>
                         {user?.balance} ₺
@@ -100,7 +96,7 @@ export default function Navbar() {
                         logout();
                       }
                     }}
-                    className="p-2 text-slate-400 hover:text-red-400 hover:bg-red-400/10 rounded-full transition-all"
+                    className="p-2 text-muted hover:text-red-400 hover:bg-red-400/10 rounded-full transition-all"
                     title="Çıkış Yap"
                   >
                     🚪
@@ -109,7 +105,7 @@ export default function Navbar() {
               ) : (
                 <button 
                   onClick={() => setIsLoginOpen(true)}
-                  className="px-6 py-2 bg-blue-600 hover:bg-blue-500 rounded-full text-white font-semibold transition-colors shadow-lg shadow-blue-600/20"
+                  className="px-6 py-2 bg-brand hover:bg-brand/80 rounded-full text-white font-semibold transition-colors shadow-lg shadow-brand/20"
                 >
                   Giriş Yap
                 </button>
@@ -117,7 +113,7 @@ export default function Navbar() {
 
               {/* Mobile menu button */}
               <div className="md:hidden flex">
-                <button className="text-slate-300 hover:text-white p-2 text-2xl">
+                <button className="text-muted hover:text-foreground p-2 text-2xl">
                   ☰
                 </button>
               </div>

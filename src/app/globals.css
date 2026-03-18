@@ -26,8 +26,8 @@
 /* light theme */
 .light {
   --background: #f8fafc; /* Slate 50 */
-  --foreground: #0f172a; /* Slate 900 */
-  --muted: #64748b; /* Slate 500 */
+  --foreground: #000000; /* Pure Black for User Request */
+  --muted: #475569; /* Slate 600 */
   --glass-bg: rgba(255, 255, 255, 0.8);
   --glass-border: rgba(0, 0, 0, 0.1);
   --brand-color: #2563eb;
