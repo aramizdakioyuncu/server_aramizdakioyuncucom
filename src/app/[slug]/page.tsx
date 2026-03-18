@@ -1,10 +1,21 @@
+export const dynamic = 'force-static';
+export const dynamicParams = false;
+
+export function generateStaticParams() {
+  return [
+    { slug: 'minecraft' },
+    { slug: 'fivem' },
+    { slug: 'assettocorsa' },
+  ];
+}
+
 export default async function GameHome({
   params,
 }: {
-  params: Promise<{ game: string }>;
+  params: Promise<{ slug: string }>;
 }) {
   const resolvedParams = await params;
-  const gameSlug = resolvedParams.game;
+  const gameSlug = resolvedParams.slug;
 
   return (
     <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
