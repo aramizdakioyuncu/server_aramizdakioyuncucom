@@ -45,8 +45,32 @@ export default function LoginModal({ isOpen, onClose, onOpenRegister }: LoginMod
             ⚠️ {error}
           </div>
         )}
+        {/* ARMOYU SSO Button */}
+        <div className="space-y-4">
+          <button 
+            type="button"
+            onClick={() => window.location.href = "https://accounts.aramizdakioyuncu.com"}
+            className="w-full py-4 bg-gradient-to-r from-[#003366] to-[#CC0000] hover:from-[#004080] hover:to-[#E60000] transition-all rounded-2xl text-white font-black shadow-xl shadow-red-900/20 flex items-center justify-center gap-4 group active:scale-[0.98] border border-white/10"
+          >
+            <div className="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center group-hover:bg-white/20 transition-all group-hover:rotate-6">
+              <img 
+                src="https://storage.aramizdakioyuncu.com/galeri/ana-yapi/armoyu128.png" 
+                alt="ARMOYU Logo" 
+                className="w-8 h-8 object-contain"
+              />
+            </div>
+            <span className="tracking-[0.2em] uppercase text-xs">ARMOYU İLE GİRİŞ YAP</span>
+          </button>
+
+          <div className="relative flex items-center gap-4 py-2">
+            <div className="flex-1 h-[1px] bg-slate-800"></div>
+            <span className="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">VEYA</span>
+            <div className="flex-1 h-[1px] bg-slate-800"></div>
+          </div>
+        </div>
+
         <div>
-          <label className="block text-slate-300 text-sm font-medium mb-1">Kullanıcı Adı</label>
+          <label className="block text-slate-300 text-sm font-medium mb-1 tracking-wide uppercase text-[10px] font-black opacity-60">Kullanıcı Adı</label>
           <input 
             type="text" 
             value={username}
@@ -59,9 +83,9 @@ export default function LoginModal({ isOpen, onClose, onOpenRegister }: LoginMod
           />
         </div>
         <div>
-          <label className="block text-slate-300 text-sm font-medium mb-1 flex justify-between">
+          <label className="block text-slate-300 text-sm font-medium mb-1 flex justify-between tracking-wide uppercase text-[10px] font-black opacity-60">
             Şifre
-            <a href="#" className="text-blue-400 hover:text-blue-300 text-xs">Şifremi Unuttum</a>
+            <a href="#" className="text-blue-400 hover:text-blue-300 transition-colors">Şifremi Unuttum</a>
           </label>
           <input 
             type="password" 
@@ -75,7 +99,7 @@ export default function LoginModal({ isOpen, onClose, onOpenRegister }: LoginMod
           <button 
             type="button"
             onClick={() => { setUsername("berkay"); setPassword("123456"); }}
-            className="mt-2 text-xs text-blue-400/70 hover:text-blue-400 transition-colors"
+            className="mt-3 text-[10px] text-blue-400/50 hover:text-blue-400 transition-colors font-black uppercase tracking-widest"
           >
             Sistemi Test Et (Otomatik Doldur)
           </button>
@@ -84,15 +108,15 @@ export default function LoginModal({ isOpen, onClose, onOpenRegister }: LoginMod
         <button 
           type="submit"
           disabled={loading}
-          className="w-full py-3 mt-4 bg-blue-600 hover:bg-blue-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors rounded-xl text-white font-bold shadow-lg shadow-blue-600/20"
+          className="w-full py-4 mt-2 bg-slate-800 hover:bg-slate-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all rounded-xl text-white font-black uppercase tracking-widest text-xs border border-slate-700 shadow-lg active:scale-95"
         >
           {loading ? "Giriş Yapılıyor..." : "Giriş Yap"}
         </button>
         
-        <p className="text-center text-sm text-slate-400 mt-4">
+        <p className="text-center text-xs text-slate-500 mt-6 font-bold uppercase tracking-widest">
           Hesabın yok mu?{" "}
-          <button type="button" onClick={onOpenRegister} className="text-blue-400 hover:text-blue-300 font-bold">
-            Kayıt Ol
+          <button type="button" onClick={onOpenRegister} className="text-blue-400 hover:text-blue-300 font-black decoration-2">
+            Şimdi Kayıt Ol
           </button>
         </p>
       </form>
