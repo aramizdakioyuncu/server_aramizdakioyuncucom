@@ -30,4 +30,4 @@ jobs:
 
           # Bir üst dizine çık (docker-compose.yml orada olduğu için)
           cd ..
-          docker-compose up -d --build anasayfa-web
+          docker-compose up -d --build server_sub
