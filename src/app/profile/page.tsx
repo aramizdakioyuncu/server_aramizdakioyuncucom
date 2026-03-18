@@ -6,6 +6,8 @@ import Link from "next/link";
 
 export default function ProfilePage() {
   const { user, isLoggedIn, logout, updateBalance } = useAuth();
+  const [isPasswordModalOpen, setIsPasswordModalOpen] = React.useState(false);
+  const [passwordData, setPasswordData] = React.useState({ current: "", new: "", confirm: "" });
 
   if (!isLoggedIn) {
     return (
@@ -26,8 +28,88 @@ export default function ProfilePage() {
     alert(`${amount} ₺ başarıyla hesabınıza eklendi! (Simülasyon)`);
   };
 
+  const handlePasswordChange = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (passwordData.new !== passwordData.confirm) {
+      alert("HATA: Yeni şifreler birbiriyle eşleşmiyor!");
+      return;
+    }
+    if (passwordData.new.length < 6) {
+      alert("HATA: Yeni şifre en az 6 karakter olmalıdır!");
+      return;
+    }
+    alert("BAŞARILI: Şifreniz başarıyla güncellendi! (Simülasyon)");
+    setIsPasswordModalOpen(false);
+    setPasswordData({ current: "", new: "", confirm: "" });
+  };
+
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 animate-in fade-in duration-700 w-full">
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 animate-in fade-in duration-700 w-full relative">
+      
+      {/* Change Password Modal */}
+      {isPasswordModalOpen && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+          <div className="absolute inset-0 bg-slate-950/80 backdrop-blur-md" onClick={() => setIsPasswordModalOpen(false)}></div>
+          <div className="glass w-full max-w-md p-8 rounded-[2.5rem] relative z-10 border border-white/10 shadow-2xl animate-in zoom-in duration-300">
+            <h3 className="text-3xl font-black text-white uppercase tracking-tighter italic mb-8 border-b border-white/5 pb-4">
+              ŞİFRE <span className="text-blue-500">GÜNCELLE</span>
+            </h3>
+            
+            <form onSubmit={handlePasswordChange} className="space-y-6">
+              <div className="space-y-2">
+                <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">Mevcut Şifre</label>
+                <input 
+                  type="password" 
+                  required
+                  value={passwordData.current}
+                  onChange={(e) => setPasswordData({...passwordData, current: e.target.value})}
+                  className="w-full bg-slate-900 border border-white/5 p-4 rounded-2xl text-white focus:border-blue-500/50 outline-none transition-all"
+                  placeholder="••••••••"
+                />
+              </div>
+              <div className="space-y-2">
+                <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">Yeni Şifre</label>
+                <input 
+                  type="password" 
+                  required
+                  value={passwordData.new}
+                  onChange={(e) => setPasswordData({...passwordData, new: e.target.value})}
+                  className="w-full bg-slate-900 border border-white/5 p-4 rounded-2xl text-white focus:border-blue-500/50 outline-none transition-all"
+                  placeholder="••••••••"
+                />
+              </div>
+              <div className="space-y-2">
+                <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">Yeni Şifre (Tekrar)</label>
+                <input 
+                  type="password" 
+                  required
+                  value={passwordData.confirm}
+                  onChange={(e) => setPasswordData({...passwordData, confirm: e.target.value})}
+                  className="w-full bg-slate-900 border border-white/5 p-4 rounded-2xl text-white focus:border-blue-500/50 outline-none transition-all"
+                  placeholder="••••••••"
+                />
+              </div>
+              
+              <div className="flex gap-4 pt-4">
+                <button 
+                  type="button"
+                  onClick={() => setIsPasswordModalOpen(false)}
+                  className="flex-1 py-4 glass hover:bg-white/10 transition-all rounded-2xl font-black text-xs uppercase tracking-widest"
+                >
+                  İPTAL
+                </button>
+                <button 
+                  type="submit"
+                  className="flex-1 py-4 bg-blue-600 hover:bg-blue-500 transition-all rounded-2xl text-white font-black text-xs uppercase tracking-widest shadow-xl shadow-blue-600/20"
+                >
+                  GÜNCELLE
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
       {/* Profile Header (Banner & Avatar) */}
       <div className="glass rounded-3xl overflow-hidden mb-8 relative">
         <div className="h-64 sm:h-80 w-full bg-[url('/bg-placeholder.jpg')] bg-cover bg-center">
@@ -97,7 +179,10 @@ export default function ProfilePage() {
 
           <div className="glass rounded-2xl p-6 border border-slate-700/50">
             <h3 className="text-xl font-bold text-white mb-4 border-b border-slate-800 pb-3 uppercase tracking-widest">Güvenlik</h3>
-            <button className="w-full py-3.5 bg-slate-800/80 hover:bg-slate-700 transition-all rounded-xl text-white font-bold mb-3 border border-slate-700 shadow-lg">
+            <button 
+              onClick={() => setIsPasswordModalOpen(true)}
+              className="w-full py-3.5 bg-slate-800/80 hover:bg-slate-700 transition-all rounded-xl text-white font-bold mb-3 border border-slate-700 shadow-lg"
+            >
               Şifre Değiştir
             </button>
             <button 
@@ -144,4 +229,3 @@ export default function ProfilePage() {
     </div>
   );
 }
-

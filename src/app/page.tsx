@@ -4,6 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 
 export default function Home() {
+  const [currentSlide, setCurrentSlide] = React.useState(0);
+  
   const scrollToServers = () => {
     document.getElementById('servers-section')?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -23,42 +25,106 @@ export default function Home() {
     { label: "Discord Üyesi", value: "12K+", icon: "💬" },
   ];
 
+  const slides = [
+    {
+      title: "Minecraft Dünyasını Keşfet",
+      desc: "Hayal gücünün sınırlarını zorla, devasa yapılar inşa et ve eşsiz bir survival deneyimi yaşa.",
+      tag: "Sezon 5 Aktif",
+      image: "https://images.unsplash.com/photo-1587573089734-09cb69c0f2b4?q=80&w=2000&auto=format&fit=crop",
+      btnText: "Sunucuya Bağlan",
+      color: "from-green-600/20 to-emerald-900/20"
+    },
+    {
+      title: "Hızın Ötesine Geç",
+      desc: "Assetto Corsa sunucularımızda gerçekçi sürüş fiziği ve ikonik pistlerle yarış heyecanını doruklarda yaşa.",
+      tag: "Yeni Yarış Pisti",
+      image: "https://images.unsplash.com/photo-1511919884226-fd3cad34687c?q=80&w=2000&auto=format&fit=crop",
+      btnText: "Yarışa Başla",
+      color: "from-blue-600/20 to-indigo-900/20"
+    },
+    {
+      title: "Şehrin Hakimi Ol",
+      desc: "FiveM Roleplay deneyimiyle kendi hikayeni yaz, dostlarınla çete kur veya adaleti sağla.",
+      tag: "Gelişmiş Ekonomi",
+      image: "https://images.unsplash.com/photo-1541562232579-512a2136000c?q=80&w=2000&auto=format&fit=crop",
+      btnText: "Role Başla",
+      color: "from-red-600/20 to-rose-900/20"
+    }
+  ];
+
   const news = [
     { title: "Minecraft Sezon 5 Başladı!", date: "2 gün önce", category: "Duyuru", color: "text-green-400" },
     { title: "Yeni Yarış Pisti: Istanbul Park", date: "1 hafta önce", category: "Güncelleme", color: "text-blue-400" },
     { title: "Büyük Topluluk Toplantısı", date: "Yarın 20:00", category: "Etkinlik", color: "text-purple-400" },
   ];
 
+  React.useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % slides.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, [slides.length]);
+
   return (
     <div className="flex flex-col min-h-screen bg-slate-950 overflow-x-hidden">
-      {/* Hero Section */}
-      <section className="relative h-[70vh] flex items-center justify-center p-8 overflow-hidden">
-        <div className="absolute inset-0 bg-[url('/bg-placeholder.jpg')] bg-cover bg-center opacity-30"></div>
-        <div className="absolute inset-0 bg-gradient-to-b from-slate-950/0 via-slate-950/80 to-slate-950"></div>
-        
-        <div className="glass rounded-3xl p-10 md:p-16 max-w-5xl text-center space-y-8 z-10 animate-in fade-in zoom-in duration-1000">
-          <div className="inline-block px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-sm font-bold tracking-widest uppercase mb-2">
-            Türkiye'nin Lider Oyun Platformu
+      {/* Hero Slider Section */}
+      <section className="relative h-[80vh] flex items-center justify-center p-4 md:p-8 overflow-hidden">
+        {slides.map((slide, idx) => (
+          <div 
+            key={idx}
+            className={`absolute inset-0 transition-all duration-1000 ease-in-out ${idx === currentSlide ? "opacity-100 scale-100 rotate-0" : "opacity-0 scale-110 rotate-1"}`}
+          >
+            <div 
+              className="absolute inset-0 bg-cover bg-center transition-transform duration-[10000ms]"
+              style={{ 
+                backgroundImage: `url('${slide.image}')`,
+                transform: idx === currentSlide ? 'scale(1.1)' : 'scale(1)'
+              }}
+            ></div>
+            <div className={`absolute inset-0 bg-gradient-to-br ${slide.color} backdrop-blur-[2px]`}></div>
+            <div className="absolute inset-0 bg-gradient-to-b from-slate-950/20 via-slate-950/60 to-slate-950"></div>
           </div>
-          <h1 className="text-4xl md:text-7xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-blue-300 via-white to-purple-400 leading-tight">
-            Aramızdaki Oyuncu'ya <br/> Hoş Geldin
+        ))}
+        
+        <div className="glass rounded-[3rem] p-8 md:p-16 max-w-6xl w-full text-center space-y-8 z-10 relative overflow-hidden group">
+          <div className="absolute -top-24 -left-24 w-64 h-64 bg-blue-500 rounded-full blur-[120px] opacity-10 group-hover:opacity-20 transition-opacity"></div>
+          
+          <div className="inline-block px-5 py-2 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-black tracking-[0.3em] uppercase mb-4 animate-bounce">
+            {slides[currentSlide].tag}
+          </div>
+          
+          <h1 className="text-5xl md:text-8xl font-black bg-clip-text text-transparent bg-gradient-to-r from-white via-white to-slate-500 leading-tight tracking-tighter uppercase italic">
+            {slides[currentSlide].title}
           </h1>
-          <p className="text-lg md:text-2xl text-slate-300 max-w-3xl mx-auto leading-relaxed font-light">
-            Eşsiz oyun deneyimi, profesyonel yönetim ve devasa bir topluluk. Sen de aramıza katıl ve bu maceranın bir parçası ol.
+          
+          <p className="text-lg md:text-2xl text-slate-300 max-w-3xl mx-auto leading-relaxed font-medium">
+            {slides[currentSlide].desc}
           </p>
-          <div className="flex flex-wrap justify-center gap-5 pt-4">
+
+          <div className="flex flex-wrap justify-center gap-6 pt-8">
             <button 
               onClick={handleJoin}
-              className="px-10 py-4 bg-blue-600 hover:bg-blue-500 transition-all rounded-2xl font-bold text-lg shadow-xl shadow-blue-600/30 hover:-translate-y-1"
+              className="px-12 py-5 bg-blue-600 hover:bg-blue-500 transition-all rounded-2xl font-black text-xs uppercase tracking-[0.2em] shadow-2xl shadow-blue-600/40 hover:-translate-y-1 active:scale-95"
             >
-              Topluluğa Katıl
+              {slides[currentSlide].btnText}
             </button>
             <button 
               onClick={scrollToServers}
-              className="px-10 py-4 glass hover:bg-white/10 transition-all rounded-2xl font-bold text-lg border-white/20 hover:-translate-y-1"
+              className="px-12 py-5 glass hover:bg-white/10 transition-all rounded-2xl font-black text-xs uppercase tracking-[0.2em] border-white/20 hover:-translate-y-1 active:scale-95"
             >
-              Sunucularımızı İncele
+              Tüm Sunucular
             </button>
+          </div>
+
+          {/* Slider Indicators */}
+          <div className="flex justify-center gap-3 mt-12">
+            {slides.map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => setCurrentSlide(idx)}
+                className={`transition-all duration-500 rounded-full ${idx === currentSlide ? "w-12 h-2 bg-blue-500 shadow-lg shadow-blue-500/50" : "w-2 h-2 bg-slate-700 hover:bg-slate-500"}`}
+              />
+            ))}
           </div>
         </div>
       </section>
@@ -125,12 +191,12 @@ export default function Home() {
                   Yazılım & Teknik Destek
                 </div>
               </div>
-                <button 
-                  onClick={handleJobSubmit}
-                  className="px-10 py-4 bg-white text-slate-950 font-black rounded-2xl hover:bg-slate-200 transition-all shadow-xl active:scale-95"
-                >
-                  Başvuru Formunu Doldur
-                </button>
+              <button 
+                onClick={handleJobSubmit}
+                className="px-10 py-4 bg-white text-slate-950 font-black rounded-2xl hover:bg-slate-200 transition-all shadow-xl active:scale-95"
+              >
+                Başvuru Formunu Doldur
+              </button>
             </div>
             
             <div className="grid grid-cols-2 gap-4">
@@ -157,4 +223,3 @@ export default function Home() {
     </div>
   );
 }
-
