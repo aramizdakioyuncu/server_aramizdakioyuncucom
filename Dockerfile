@@ -7,9 +7,12 @@ WORKDIR /app
 # Hafıza ve hız optimizasyonu
 ENV NODE_OPTIONS="--max-old-space-size=4096"
 
-COPY package.json ./
-# Yarn kullanarak kur (Genelde daha stabil ve hızlıdır)
-RUN yarn install --network-timeout 600000
+# Önemli: Hem package.json hem de package-lock.json kopyalanmalı
+COPY package*.json ./
+
+# npm ci (Clean Install) kullanarak kur. 
+# package-lock.json dosyasını baz alarak tam olarak aynı versiyonları kurar.
+RUN npm ci --network-timeout 600000
 
 COPY . .
 RUN npm run build
