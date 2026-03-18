@@ -1,25 +1,29 @@
 "use client";
 
-import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { SITE_CONFIG } from "@/constants/site";
 
 export default function Sidebar() {
   const pathname = usePathname();
 
   const servers = [
-    { id: "home", name: "Anasayfa", icon: "🏠", href: "/", color: "from-slate-700 to-slate-800" },
-    { id: "minecraft", name: "Minecraft", icon: "https://storage.aramizdakioyuncu.com/galeri/oyun-logolari/minecraft.png", href: "/minecraft", color: "from-green-600 to-green-700" },
-    { id: "fivem", name: "FiveM", icon: "https://storage.aramizdakioyuncu.com/galeri/oyun-logolari/grand-theft-auto-v.png", href: "/fivem", color: "from-red-600 to-red-700" },
-    { id: "assettocorsa", name: "Assetto Corsa", icon: "https://storage.aramizdakioyuncu.com/galeri/oyun-logolari/assetto-corsa.png", href: "/assettocorsa", color: "from-emerald-600 to-emerald-700" },
+    { id: "minecraft", name: "Minecraft", icon: SITE_CONFIG.assets.games.minecraft, href: "/minecraft", color: "from-green-600 to-green-700" },
+    { id: "fivem", name: "FiveM", icon: SITE_CONFIG.assets.games.fivem, href: "/fivem", color: "from-red-600 to-red-700" },
+    { id: "assettocorsa", name: "Assetto Corsa", icon: SITE_CONFIG.assets.games.assettocorsa, href: "/assettocorsa", color: "from-emerald-600 to-emerald-700" },
   ];
 
   return (
     <aside className="fixed left-0 top-0 bottom-0 w-20 z-[60] glass border-r border-slate-700 flex flex-col items-center py-6 gap-6">
-      {/* Branding / Icon (Optional) */}
-      <div className="w-12 h-12 bg-gradient-to-tr from-blue-600 to-purple-500 rounded-2xl rotate-45 flex items-center justify-center shadow-lg shadow-blue-600/20 mb-4">
-        <span className="-rotate-45 text-white font-bold text-xl">A</span>
-      </div>
+      {/* Branding / Logo */}
+      <Link href="/" className="w-14 h-14 relative flex items-center justify-center group transition-transform hover:scale-110 duration-300">
+        <div className="absolute inset-0 bg-blue-600/10 rounded-2xl blur-xl group-hover:bg-blue-600/20 transition-colors"></div>
+        <img 
+          src={SITE_CONFIG.assets.logo} 
+          alt={SITE_CONFIG.name} 
+          className="w-12 h-12 object-contain relative z-10 drop-shadow-[0_0_8px_rgba(59,130,246,0.3)]"
+        />
+      </Link>
 
       <div className="h-[1px] w-10 bg-slate-700/50 mb-2"></div>
 

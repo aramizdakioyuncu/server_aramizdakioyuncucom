@@ -2,10 +2,12 @@
 import React from "react";
 import Image from "next/image";
 import { useAuth } from "@/context/AuthContext";
+import { useTheme } from "@/context/ThemeContext";
 import Link from "next/link";
 
 export default function ProfilePage() {
   const { user, isLoggedIn, logout, updateBalance } = useAuth();
+  const { theme, setTheme } = useTheme();
   const [isPasswordModalOpen, setIsPasswordModalOpen] = React.useState(false);
   const [passwordData, setPasswordData] = React.useState({ current: "", new: "", confirm: "" });
 
@@ -152,42 +154,62 @@ export default function ProfilePage() {
         
         {/* User Stats / Info Sidebar */}
         <div className="lg:col-span-1 space-y-6">
-          <div className="glass rounded-2xl p-6 border border-slate-700/50">
-            <h3 className="text-xl font-bold text-white mb-6 border-b border-slate-800 pb-3 flex justify-between items-center">
-              Hesap Bilgileri
-              <button className="text-sm text-blue-400 font-bold hover:text-blue-300 transition-colors uppercase tracking-widest">DÜZENLE</button>
+          <div className="glass rounded-2xl p-6 border border-white/5">
+            <h3 className="text-xl font-bold text-foreground mb-6 border-b border-white/5 pb-3 flex justify-between items-center font-black uppercase tracking-tighter italic">
+              Hesap <span className="text-brand">Bilgileri</span>
             </h3>
             
             <div className="space-y-5">
               <div>
-                <p className="text-slate-400 text-xs uppercase font-bold tracking-widest mb-1">Kullanıcı Adı</p>
-                <p className="text-white font-bold">{user?.username}</p>
+                <p className="text-muted text-[10px] uppercase font-bold tracking-widest mb-1">Kullanıcı Adı</p>
+                <p className="text-foreground font-bold">{user?.username}</p>
               </div>
               <div>
-                <p className="text-slate-400 text-xs uppercase font-bold tracking-widest mb-1">Kimlik</p>
-                <p className="text-white font-bold text-xs">#AY-984210</p>
+                <p className="text-muted text-[10px] uppercase font-bold tracking-widest mb-1">Kimlik</p>
+                <p className="text-foreground font-bold text-xs uppercase tracking-tighter">#AY-984210</p>
               </div>
               <div>
-                <p className="text-slate-400 text-xs uppercase font-bold tracking-widest mb-1">Durum</p>
-                <p className="mt-1 inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-green-500/10 text-green-400 text-xs font-black border border-green-500/20">
+                <p className="text-muted text-[10px] uppercase font-bold tracking-widest mb-1">Durum</p>
+                <p className="mt-1 inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-green-500/10 text-green-500 text-[10px] font-black border border-green-500/20 uppercase tracking-widest">
                   <span className="w-2.5 h-2.5 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.6)] animate-pulse"></span>
-                  AKTİF & ONAYLI
+                  AKTİF
                 </p>
               </div>
             </div>
           </div>
 
-          <div className="glass rounded-2xl p-6 border border-slate-700/50">
-            <h3 className="text-xl font-bold text-white mb-4 border-b border-slate-800 pb-3 uppercase tracking-widest">Güvenlik</h3>
+          <div className="glass rounded-2xl p-6 border border-white/5">
+            <h3 className="text-xl font-bold text-foreground mb-6 border-b border-white/5 pb-3 uppercase tracking-widest font-black italic">Görünüm ❤️</h3>
+            <div className="grid grid-cols-1 gap-3">
+               {[
+                 { id: "dark", name: "Standart Karanlık" },
+                 { id: "light", name: "Klasik Aydınlık" },
+                 { id: "modern-blue", name: "Modern Mavi" },
+                 { id: "classic-red", name: "Klasik Kırmızı" }
+               ].map((t) => (
+                 <button 
+                  key={t.id}
+                  onClick={() => setTheme(t.id as any)}
+                  className={`w-full p-4 rounded-2xl border text-left flex items-center justify-between group transition-all ${theme === t.id ? 'border-brand bg-brand/10' : 'border-white/5 hover:border-white/20'}`}
+                 >
+                   <span className="text-xs font-black uppercase tracking-widest text-foreground">{t.name}</span>
+                   <div className={`w-4 h-4 rounded-full border-2 ${theme === t.id ? 'bg-brand border-foreground' : 'border-muted'}`}></div>
+                 </button>
+               ))}
+            </div>
+          </div>
+
+          <div className="glass rounded-2xl p-6 border border-white/5">
+            <h3 className="text-xl font-bold text-foreground mb-4 border-b border-white/5 pb-3 uppercase tracking-widest font-black italic">Güvenlik 🛡️</h3>
             <button 
               onClick={() => setIsPasswordModalOpen(true)}
-              className="w-full py-3.5 bg-slate-800/80 hover:bg-slate-700 transition-all rounded-xl text-white font-bold mb-3 border border-slate-700 shadow-lg"
+              className="w-full py-4 bg-foreground/5 hover:bg-foreground/10 transition-all rounded-2xl text-foreground font-black text-xs uppercase tracking-[0.2em] mb-3 border border-white/5 shadow-lg"
             >
               Şifre Değiştir
             </button>
             <button 
               onClick={() => { if(confirm('Çıkış yapmak üzeresiniz?')) logout(); }}
-              className="w-full py-3.5 border border-red-500/30 text-red-400 hover:bg-red-500/10 transition-all rounded-xl font-bold uppercase tracking-widest shadow-lg shadow-red-500/5"
+              className="w-full py-4 border border-red-500/30 text-red-500 hover:bg-red-500/10 transition-all rounded-2xl font-black text-xs uppercase tracking-[0.2em] shadow-lg shadow-red-500/5"
             >
               Hesaptan Çıkış Yap
             </button>

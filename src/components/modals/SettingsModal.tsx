@@ -40,19 +40,31 @@ export default function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
       {activeTab === 'theme' && (
         <div className="space-y-6">
           <div>
-            <h4 className="text-white text-sm font-bold mb-3">Tema Seçimi</h4>
-            <div className="flex gap-4">
+            <h4 className="text-white text-sm font-bold mb-3 uppercase tracking-tighter italic">Tema <span className="text-blue-500">Seçimi</span></h4>
+            <div className="grid grid-cols-2 gap-3">
               <button 
                 onClick={() => setTheme("dark")}
-                className={`flex-1 py-3 rounded-lg border transition-all ${theme === 'dark' ? 'border-blue-500 bg-slate-800 text-white font-medium ring-2 ring-blue-500/50' : 'bg-slate-900 border-slate-700 text-slate-400'}`}
+                className={`py-3 rounded-xl border text-xs font-black uppercase tracking-widest transition-all ${theme === 'dark' ? 'border-blue-500 bg-blue-500/10 text-white' : 'bg-slate-900 border-white/5 text-slate-400'}`}
               >
                 Karanlık
               </button>
               <button 
                 onClick={() => setTheme("light")}
-                className={`flex-1 py-3 rounded-lg border transition-all ${theme === 'light' ? 'border-blue-500 bg-slate-100 text-slate-800 font-medium ring-2 ring-blue-500/50' : 'bg-white border-slate-300 text-slate-600'}`}
+                className={`py-3 rounded-xl border text-xs font-black uppercase tracking-widest transition-all ${theme === 'light' ? 'border-blue-500 bg-blue-500/10 text-white' : 'bg-slate-900 border-white/5 text-slate-400'}`}
               >
                 Aydınlık
+              </button>
+              <button 
+                onClick={() => setTheme("modern-blue")}
+                className={`py-3 rounded-xl border text-xs font-black uppercase tracking-widest transition-all ${theme === 'modern-blue' ? 'border-blue-500 bg-blue-500/10 text-white' : 'bg-slate-900 border-white/5 text-slate-400'}`}
+              >
+                Modern Mavi
+              </button>
+              <button 
+                onClick={() => setTheme("classic-red")}
+                className={`py-3 rounded-xl border text-xs font-black uppercase tracking-widest transition-all ${theme === 'classic-red' ? 'border-blue-500 bg-blue-500/10 text-white' : 'bg-slate-900 border-white/5 text-slate-400'}`}
+              >
+                Klasik Kırmızı
               </button>
             </div>
           </div>

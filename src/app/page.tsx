@@ -66,7 +66,7 @@ export default function Home() {
   }, [slides.length]);
 
   return (
-    <div className="flex flex-col min-h-screen bg-slate-950 overflow-x-hidden">
+    <div className="flex flex-col min-h-screen custom-bg overflow-x-hidden">
       {/* Hero Slider Section */}
       <section className="relative h-[80vh] flex items-center justify-center p-4 md:p-8 overflow-hidden">
         {slides.map((slide, idx) => (

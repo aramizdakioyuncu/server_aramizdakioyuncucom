@@ -24,8 +24,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="tr" className={`${inter.variable} h-full antialiased dark`}>
-      <body className="min-h-full flex flex-col bg-background text-foreground pt-20">
+    <html lang="tr" className={`${inter.variable} h-full antialiased`}>
+      <body className="min-h-full flex flex-col custom-bg text-foreground pt-20">
         <ThemeProvider>
           <AuthProvider>
             <Sidebar />

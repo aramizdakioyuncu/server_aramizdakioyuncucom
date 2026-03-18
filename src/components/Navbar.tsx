@@ -46,17 +46,7 @@ export default function Navbar() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
             
-            {/* Logo */}
-            <div className="flex-shrink-0">
-              <Link href="/" className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-gradient-to-tr from-blue-600 to-purple-500 rounded-xl transform rotate-45 flex items-center justify-center shadow-[0_0_15px_rgba(37,99,235,0.5)]">
-                  <span className="-rotate-45 text-white font-bold text-xl">A</span>
-                </div>
-                <span className="font-bold text-xl tracking-tight hidden sm:block text-white">Aramızdaki Oyuncu</span>
-              </Link>
-            </div>
-
-            {/* Center Links */}
+            {/* Nav Links Moved to Left/Start now that logo is gone */}
             <div className="hidden md:block">
               <div className="flex items-center space-x-1">
                 {links.map((link) => {

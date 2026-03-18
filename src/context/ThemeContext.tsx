@@ -2,13 +2,13 @@
 
 import React, { createContext, useContext, useState, useEffect } from "react";
 
-type Theme = "dark" | "light";
+export type ThemeType = "dark" | "modern-blue" | "classic-red" | "light";
 
 interface ThemeContextType {
-  theme: Theme;
+  theme: ThemeType;
   accentColor: string;
   reduceMotion: boolean;
-  setTheme: (theme: Theme) => void;
+  setTheme: (theme: ThemeType) => void;
   setAccentColor: (color: string) => void;
   setReduceMotion: (reduce: boolean) => void;
 }
@@ -16,42 +16,47 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setThemeState] = useState<Theme>("dark");
+  const [theme, setThemeState] = useState<ThemeType>("dark");
   const [accentColor, setAccentColorState] = useState("#3b82f6");
   const [reduceMotion, setReduceMotionState] = useState(false);
 
-  // Load from localStorage
-  useEffect(() => {
-    const savedTheme = localStorage.getItem("app_theme") as Theme;
-    const savedAccent = localStorage.getItem("app_accent");
-    const savedMotion = localStorage.getItem("app_motion");
-
-    if (savedTheme) setThemeState(savedTheme);
-    if (savedAccent) setAccentColorState(savedAccent);
-    if (savedMotion) setReduceMotionState(savedMotion === "true");
-  }, []);
-
-  const setTheme = (newTheme: Theme) => {
+  const setTheme = (newTheme: ThemeType) => {
     setThemeState(newTheme);
     localStorage.setItem("app_theme", newTheme);
-    // Apply class to document if needed
-    if (newTheme === "dark") {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
+    document.documentElement.className = newTheme;
   };
 
   const setAccentColor = (color: string) => {
     setAccentColorState(color);
     localStorage.setItem("app_accent", color);
-    document.documentElement.style.setProperty("--primary", color);
+    document.documentElement.style.setProperty("--accent", color);
   };
 
   const setReduceMotion = (reduce: boolean) => {
     setReduceMotionState(reduce);
     localStorage.setItem("app_motion", reduce.toString());
   };
+
+  // Initial load
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("app_theme") as ThemeType;
+    const savedAccent = localStorage.getItem("app_accent");
+    const savedMotion = localStorage.getItem("app_motion");
+
+    if (savedTheme) {
+      setTheme(savedTheme);
+    } else {
+      document.documentElement.className = "dark";
+    }
+
+    if (savedAccent) {
+      setAccentColor(savedAccent);
+    }
+    
+    if (savedMotion) {
+      setReduceMotionState(savedMotion === "true");
+    }
+  }, []);
 
   return (
     <ThemeContext.Provider value={{ 
