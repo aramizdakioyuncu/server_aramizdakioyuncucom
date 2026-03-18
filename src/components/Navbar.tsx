@@ -7,8 +7,10 @@ import { useState } from "react";
 import LoginModal from "./modals/LoginModal";
 import RegisterModal from "./modals/RegisterModal";
 import SettingsModal from "./modals/SettingsModal";
+import { useAuth } from "@/context/AuthContext";
 
 export default function Navbar() {
+  const { user, isLoggedIn, logout } = useAuth();
   const pathname = usePathname();
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
@@ -17,9 +19,6 @@ export default function Navbar() {
   // Extract game name from pathname to customize logic if needed
   const match = pathname.match(/^\/([^\/]+)/);
   const game = match ? match[1] : "";
-
-  // Temporary mock user logged in status
-  const isLoggedIn = true;
 
   const getLinks = (gameSlug: string) => {
     if (!gameSlug || gameSlug === "profile") {
@@ -43,7 +42,7 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="fixed top-0 left-0 right-0 z-50 glass">
+      <nav className="fixed top-0 left-20 right-0 z-50 glass border-b border-slate-700/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
             
@@ -92,19 +91,31 @@ export default function Navbar() {
               <div className="h-8 w-[1px] bg-slate-700 mx-2 hidden sm:block"></div>
               
               {isLoggedIn ? (
-                <Link href="/profile" className="flex items-center gap-3 p-1 pr-4 bg-slate-800/50 hover:bg-slate-700/50 transition-colors rounded-full border border-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                  <div className="w-8 h-8 rounded-full bg-slate-600 overflow-hidden ring-2 ring-slate-800">
-                    {/* Mock Avatar */}
-                    <img src="https://i.pravatar.cc/150?u=berkay" alt="Avatar" className="w-full h-full object-cover" />
-                  </div>
-                  <div className="hidden sm:flex flex-col">
-                    <span className="text-sm font-semibold leading-tight text-slate-200">Berkay</span>
-                    <span className="text-xs text-yellow-500 flex items-center gap-1 font-medium">
-                      <span className="w-1.5 h-1.5 rounded-full bg-yellow-500 shadow-[0_0_5px_rgba(234,179,8,1)]"></span>
-                      2500 ₺
-                    </span>
-                  </div>
-                </Link>
+                <div className="flex items-center gap-2">
+                  <Link href="/profile" className="flex items-center gap-3 p-1 pr-4 bg-slate-800/50 hover:bg-slate-700/50 transition-colors rounded-full border border-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <div className="w-8 h-8 rounded-full bg-slate-600 overflow-hidden ring-2 ring-slate-800">
+                      <img src={user?.avatar} alt="Avatar" className="w-full h-full object-cover" />
+                    </div>
+                    <div className="hidden sm:flex flex-col">
+                      <span className="text-sm font-semibold leading-tight text-slate-200">{user?.username}</span>
+                      <span className="text-xs text-yellow-500 flex items-center gap-1 font-medium">
+                        <span className="w-1.5 h-1.5 rounded-full bg-yellow-500 shadow-[0_0_5px_rgba(234,179,8,1)]"></span>
+                        {user?.balance} ₺
+                      </span>
+                    </div>
+                  </Link>
+                  <button 
+                    onClick={() => {
+                      if(window.confirm("Çıkış yapmak istediğinize emin misiniz?")) {
+                        logout();
+                      }
+                    }}
+                    className="p-2 text-slate-400 hover:text-red-400 hover:bg-red-400/10 rounded-full transition-all"
+                    title="Çıkış Yap"
+                  >
+                    🚪
+                  </button>
+                </div>
               ) : (
                 <button 
                   onClick={() => setIsLoginOpen(true)}

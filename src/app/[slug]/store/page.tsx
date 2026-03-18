@@ -1,23 +1,17 @@
+"use client";
+import React, { use } from "react";
 import Image from "next/image";
+import { useAuth } from "@/context/AuthContext";
 
-export const dynamic = 'force-static';
-export const dynamicParams = false;
-
-export function generateStaticParams() {
-  return [
-    { slug: 'minecraft' },
-    { slug: 'fivem' },
-    { slug: 'assettocorsa' },
-  ];
-}
-
-export default async function StorePage({
+export default function StorePage({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }) {
-  const resolvedParams = await params;
+  const resolvedParams = use(params);
   const gameSlug = resolvedParams.slug;
+  const { user, updateBalance } = useAuth();
+
   const products = [
     { name: "VIP", price: "50", color: "bg-blue-500", shadow: "shadow-blue-500/20" },
     { name: "VIP+", price: "100", color: "bg-cyan-500", shadow: "shadow-cyan-500/20" },
@@ -28,6 +22,23 @@ export default async function StorePage({
     { name: "GOD", price: "1250", color: "bg-orange-500", shadow: "shadow-orange-500/20" },
     { name: "SUPREME", price: "2000", color: "bg-rose-600", shadow: "shadow-rose-600/20" },
   ];
+
+  const handlePurchase = (p: typeof products[0]) => {
+    const price = parseInt(p.price);
+    if (!user) {
+      alert("Satın almak için önce giriş yapmalısın!");
+      return;
+    }
+    if (user.balance < price) {
+      alert("Yetersiz bakiye! Lütfen önce bakiye yükle.");
+      return;
+    }
+    
+    if (confirm(`${p.name} ürününü ${p.price}₺ karşılığında satın almak istiyor musunuz?`)) {
+      updateBalance(-price);
+      alert(`TEBRİKLER! ${p.name} başarıyla satın alındı. Oyun içinde teslim edilecektir.`);
+    }
+  };
 
   return (
     <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
@@ -61,7 +72,10 @@ export default async function StorePage({
                 {p.price} <span className="text-xl text-yellow-500 font-bold">₺</span>
               </div>
               
-              <button className={`w-full py-3 rounded-lg text-white font-bold transition-colors ${p.color} hover:opacity-90`}>
+              <button 
+                onClick={() => handlePurchase(p)}
+                className={`w-full py-3 rounded-lg text-white font-bold transition-colors ${p.color} hover:opacity-90`}
+              >
                 Satın Al
               </button>
             </div>
@@ -78,3 +92,4 @@ export default async function StorePage({
     </div>
   );
 }
+

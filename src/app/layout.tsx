@@ -9,6 +9,9 @@ const inter = Inter({
 
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import Sidebar from "@/components/Sidebar";
+import { AuthProvider } from "@/context/AuthContext";
+import { ThemeProvider } from "@/context/ThemeContext";
 
 export const metadata: Metadata = {
   title: "Aramızdaki Oyuncu",
@@ -23,11 +26,18 @@ export default function RootLayout({
   return (
     <html lang="tr" className={`${inter.variable} h-full antialiased dark`}>
       <body className="min-h-full flex flex-col bg-background text-foreground pt-20">
-        <Navbar />
-        <main className="flex-1 flex flex-col">
-          {children}
-        </main>
-        <Footer />
+        <ThemeProvider>
+          <AuthProvider>
+            <Sidebar />
+            <div className="pl-20 flex flex-col flex-1 min-h-screen">
+              <Navbar />
+              <main className="flex-1 flex flex-col">
+                {children}
+              </main>
+              <Footer />
+            </div>
+          </AuthProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
