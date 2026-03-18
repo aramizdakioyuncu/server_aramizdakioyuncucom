@@ -1,12 +1,21 @@
-"use client";
-import React, { use } from "react";
+import React from "react";
 
-export default function StaffPage({
+export const dynamicParams = false;
+
+export function generateStaticParams() {
+  return [
+    { slug: 'minecraft' },
+    { slug: 'fivem' },
+    { slug: 'assettocorsa' },
+  ];
+}
+
+export default async function StaffPage({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }) {
-  const resolvedParams = use(params);
+  const resolvedParams = await params;
   const gameSlug = resolvedParams.slug;
   const staff = [
     { name: "Berkay", role: "Kurucu", avatar: "https://i.pravatar.cc/150?u=berkay", color: "text-red-500", from: "İstanbul", desc: "Sistem mimarı ve geliştirici." },
@@ -31,10 +40,10 @@ export default function StaffPage({
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 max-w-6xl mx-auto px-4 pb-20">
         {staff.map((member, idx) => (
           <div key={idx} className="glass rounded-[2rem] overflow-hidden group hover:border-blue-500/50 transition-all duration-500 border border-white/5">
-            <div className="relative h-40 bg-slate-900 overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-900/30 via-slate-900 to-purple-900/30"></div>
+            <div className="relative h-40 bg-slate-900">
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-900/30 via-slate-900 to-purple-900/30 overflow-hidden rounded-t-[2rem]"></div>
               {/* Pattern Overlay */}
-              <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:20px_20px]"></div>
+              <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:20px_20px] overflow-hidden rounded-t-[2rem]"></div>
               
               <div className="absolute -bottom-16 left-1/2 -translate-x-1/2 w-32 h-32 rounded-full border-[6px] border-[#0f172a] bg-slate-800 overflow-hidden shadow-2xl z-10 transition-transform group-hover:scale-110 duration-500">
                 <img src={member.avatar} alt={member.name} className="w-full h-full object-cover" />
@@ -59,7 +68,6 @@ export default function StaffPage({
               
               <div className="flex justify-center gap-3">
                 <button 
-                  onClick={() => alert(`${member.name} kullanıcısına mesaj gönderildi (MOCK)`)}
                   className="flex-1 py-3 bg-blue-600 hover:bg-blue-500 transition-all rounded-xl text-white font-black text-[10px] uppercase tracking-widest shadow-lg shadow-blue-600/20 active:scale-95"
                 >
                   Mesaj Gönder
@@ -80,4 +88,3 @@ export default function StaffPage({
     </div>
   );
 }
-

@@ -7,6 +7,7 @@ import { useState } from "react";
 import LoginModal from "./modals/LoginModal";
 import RegisterModal from "./modals/RegisterModal";
 import SettingsModal from "./modals/SettingsModal";
+import ForgotPasswordModal from "./modals/ForgotPasswordModal";
 import { useAuth } from "@/context/AuthContext";
 
 export default function Navbar() {
@@ -14,6 +15,7 @@ export default function Navbar() {
   const pathname = usePathname();
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
+  const [isForgotPasswordOpen, setIsForgotPasswordOpen] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
   // Extract game name from pathname to customize logic if needed
@@ -130,6 +132,10 @@ export default function Navbar() {
           setIsLoginOpen(false);
           setIsRegisterOpen(true);
         }} 
+        onOpenForgotPassword={() => {
+          setIsLoginOpen(false);
+          setIsForgotPasswordOpen(true);
+        }}
       />
       <RegisterModal 
         isOpen={isRegisterOpen} 
@@ -142,6 +148,14 @@ export default function Navbar() {
       <SettingsModal
         isOpen={isSettingsOpen}
         onClose={() => setIsSettingsOpen(false)}
+      />
+      <ForgotPasswordModal
+        isOpen={isForgotPasswordOpen}
+        onClose={() => setIsForgotPasswordOpen(false)}
+        onOpenLogin={() => {
+          setIsForgotPasswordOpen(false);
+          setIsLoginOpen(true);
+        }}
       />
     </>
   );

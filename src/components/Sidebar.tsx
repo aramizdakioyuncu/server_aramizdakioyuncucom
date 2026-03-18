@@ -10,7 +10,7 @@ export default function Sidebar() {
   const servers = [
     { id: "minecraft", name: "Minecraft", icon: SITE_CONFIG.assets.games.minecraft, href: "/minecraft", color: "from-green-600 to-green-700" },
     { id: "fivem", name: "FiveM", icon: SITE_CONFIG.assets.games.fivem, href: "/fivem", color: "from-red-600 to-red-700" },
-    { id: "assettocorsa", name: "Assetto Corsa", icon: SITE_CONFIG.assets.games.assettocorsa, href: "/assettocorsa", color: "from-emerald-600 to-emerald-700" },
+    { id: "assettocorsa", name: "Assetto Corsa", icon: SITE_CONFIG.assets.games.assettocorsa, href: "/assettocorsa", color: "from-blue-600 to-blue-700" },
   ];
 
   return (

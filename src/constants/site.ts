@@ -19,5 +19,10 @@ export const SITE_CONFIG = {
     discord: "https://discord.gg/armoyu",
     instagram: "https://instagram.com/armoyu",
     youtube: "https://youtube.com/armoyu"
+  },
+  servers: {
+    minecraft: "mc.armoyu.com",
+    fivem: "play.armoyu.com",
+    assettocorsa: "185.255.95.140"
   }
 };

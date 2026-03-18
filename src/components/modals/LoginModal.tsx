@@ -7,9 +7,10 @@ interface LoginModalProps {
   isOpen: boolean;
   onClose: () => void;
   onOpenRegister: () => void;
+  onOpenForgotPassword: () => void;
 }
 
-export default function LoginModal({ isOpen, onClose, onOpenRegister }: LoginModalProps) {
+export default function LoginModal({ isOpen, onClose, onOpenRegister, onOpenForgotPassword }: LoginModalProps) {
   const { login } = useAuth();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -55,7 +56,7 @@ export default function LoginModal({ isOpen, onClose, onOpenRegister }: LoginMod
               const left = (window.innerWidth - width) / 2 + window.screenX;
               const top = (window.innerHeight - height) / 2 + window.screenY;
               window.open(
-                "https://accounts.aramizdakioyuncu.com", 
+                "https://accounts.armoyu.com/", 
                 "ARMOYU Login", 
                 `width=${width},height=${height},top=${top},left=${left},scrollbars=yes,resizable=yes`
               );
@@ -95,7 +96,13 @@ export default function LoginModal({ isOpen, onClose, onOpenRegister }: LoginMod
         <div>
           <label className="block text-slate-300 text-sm font-medium mb-1 flex justify-between tracking-wide uppercase text-[10px] font-black opacity-60">
             Şifre
-            <a href="#" className="text-blue-400 hover:text-blue-300 transition-colors">Şifremi Unuttum</a>
+            <button 
+              type="button" 
+              onClick={onOpenForgotPassword}
+              className="text-blue-400 hover:text-blue-300 transition-colors"
+            >
+              Şifremi Unuttum
+            </button>
           </label>
           <input 
             type="password" 
