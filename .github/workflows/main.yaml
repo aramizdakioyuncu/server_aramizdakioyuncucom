@@ -1,0 +1,33 @@
+name: Auto Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Deploy to Production
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Git sahiplik hatasını önlemek için dizini güvenli olarak işaretle
+          git config --global --add safe.directory ${{ secrets.DEPLOY_PATH }}
+
+          # Proje dizinine git (DEPLOY_PATH secret'ini kullanır)
+          cd ${{ secrets.DEPLOY_PATH }}
+
+          # Kimlik doğrulama hatasını önlemek için token kullan
+          git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git
+
+          # Kodları çek
+          git pull origin main
+
+          # Bir üst dizine çık (docker-compose.yml orada olduğu için)
+          cd ..
+          docker-compose up -d --build anasayfa-web
