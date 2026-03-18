@@ -49,7 +49,17 @@ export default function LoginModal({ isOpen, onClose, onOpenRegister }: LoginMod
         <div className="space-y-4">
           <button 
             type="button"
-            onClick={() => window.location.href = "https://accounts.aramizdakioyuncu.com"}
+            onClick={() => {
+              const width = 600;
+              const height = 800;
+              const left = (window.innerWidth - width) / 2 + window.screenX;
+              const top = (window.innerHeight - height) / 2 + window.screenY;
+              window.open(
+                "https://accounts.aramizdakioyuncu.com", 
+                "ARMOYU Login", 
+                `width=${width},height=${height},top=${top},left=${left},scrollbars=yes,resizable=yes`
+              );
+            }}
             className="w-full py-4 bg-gradient-to-r from-[#003366] to-[#CC0000] hover:from-[#004080] hover:to-[#E60000] transition-all rounded-2xl text-white font-black shadow-xl shadow-red-900/20 flex items-center justify-center gap-4 group active:scale-[0.98] border border-white/10"
           >
             <div className="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center group-hover:bg-white/20 transition-all group-hover:rotate-6">
