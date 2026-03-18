@@ -1,5 +1,5 @@
 # 1. Aşama: Build
-FROM node:18-alpine AS build-stage
+FROM node:20-alpine AS build-stage
 # Native modüller için gerekli kütüphaneleri ekle
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
